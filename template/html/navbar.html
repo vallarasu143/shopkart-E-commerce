@@ -1,0 +1,76 @@
+{% load static %}
+<header>
+    <div class="nav-bar">
+        <div class="web-name">
+         <a href="/">ShopKart</a>
+        </div>
+        
+        <ul class="link">
+            <li class="trending"><a href="/trending">Trending</a></li>
+            <li class="collection"><a href="/collection"><i class="material-icons"></i>Collection</a></li>
+            {% if user.is_authenticated %}
+            <img title="MenuBar" id="id-img" class="click" src="" style="margin-right:5px;top:5px;position: relative;object-fit: contain;" width="30px" height="30px"  alt="user">
+            {% else %}
+            <li class="login"><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Login</a></li>
+            <li class="register"><a href="/register"><i class="fa-solid fa-user-plus"></i>Register</a></li>
+            <div class="bar-menu"><i class="fa-solid fa-bars" style="color: white;font-size: xx-large;"></i></div>
+            {% endif %}
+            
+        </ul>  
+    </div>
+</header>
+
+    <div class="log-register">
+    <li><a href="/login">Login</a></li>
+    <li><a href="/register">Register</a></li>
+    <li ><a href="/trending">Trending</a></li>
+    <li><a href="/collection">Collection</a></li>
+    </div>
+
+<div  class="user-menu" id="id-arasu">
+    <div class="menubar-image ">
+        <li>Welcome!<span style="font-variant-caps: petite-caps;">{{request.user.username}}</span>
+        </li>
+        <li><img src="" id="id-menuimage" class="close" style="object-fit:contain;" width="30px" height="30px" title="close menu" alt="arasu"></li>
+    </div>
+    <ul>
+        <li class="menu-trending-btn" ><a href="/trending">Trending</a></li>
+        <li class="menu-collection-btn"><a href="/collection">Collection</a></li>
+        <li><a href="">Order</a></li>
+        <li><a href="/whisitlist/details/">Whisitlist</a></li>
+        <li><a href="/details">Cart</a></li>
+        <!--li><a href="/userchange/{{request.user.id}}">profilechange</a></li-->
+        <li class="profile-btn">
+            <a href='#'>ProfileEdit <i class="fa fa-caret-down"></i></a>
+            <ul class="prfile-menu">
+                <li><a style="font-size: small;" href="/userchange">Userchange</a></li>
+                <li><a style="font-size: small;" href="/user/uploadpicture">Profilepicture</a></li>
+            </ul>
+        </li>
+
+        <li><a href="/logout"><i class="fa fa-power-off"></i>Logout</a></li>
+    </ul>
+</div>
+
+<script>
+    const imageurl='{{image.userpic.url}}';
+    document.getElementById('id-img').src=imageurl?'{{image.userpic.url}}':"{% static 'imgfile/userimage.png'%}";
+    document.getElementById('id-menuimage').src=imageurl;
+    const urlpath='{{image.userpic.url}}';
+    document.getElementById('id-menuimage').src=urlpath?'{{image.userpic.url}}':"{% static 'imgfile/userimage.png'%}";
+</script>
+
+<script>
+   const BTN=document.querySelector('.bar-menu');
+   const value=document.querySelector('.log-register');
+   const Icon=document.querySelector('.bar-menu i');
+   BTN.onclick = function() {
+    value.classList.toggle('open');
+    const varible = value.classList.contains('open');
+    Icon.classList = varible
+    ?"fa-solid fa-xmark"
+    :"fa-solid fa-bars";
+
+}
+</script>
+

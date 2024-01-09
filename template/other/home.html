@@ -1,0 +1,52 @@
+{% extends "mainhtml/mainpage.html"%}
+{% load static %}
+{% block title%}
+<title>HOME PAGE</title>
+
+{% endblock %}
+{% block content %}
+<div style="background-image:linear-gradient(to top,rgb(51, 111, 13),rgb(247, 244, 244));display: flex;justify-content: space-between;align-items: center;padding: 20px;border-radius: 7px;">
+    <div style="width: 100%;">
+       <p><span style="font-weight: bolder;font-size: larger;">Iphone 14</span> <br><span>sellprize:60999/only</span><br>
+           <span>A15 Bionic Chip, 6Core Processor | Hexa Core <br>6.1inch Super Retina XDR Display</span>
+       </p>
+    <p style="list-style-type: none;background-color: orangered;padding: 5px;border-radius: 7px;text-align: center;"><a href="">Latest Offers</a></p>
+    </div>
+    
+    <div style="text-align:center;width: 100%;">
+        <div style="background-color: green;border-radius: 200px;">
+        <img src="{% static 'imgfile/iphone-14-pro-png.png'%}" style="object-fit: contain;" width="100px" alt="">
+        </div>
+    </div>
+</div>
+
+<h2>Product Collections</h2>
+<hr>
+<div style="background-image:linear-gradient(to top,pink,rgb(176, 245, 144));border-radius: 5px;">
+    
+    <div class="collection">
+
+        {% for msg in item %}
+        <div>
+            <li><a href="/col-item/{{msg.id}}"><img src="{{msg.image.url}}" style="object-fit:contain;" width="45%" height="50px" alt="image" ></a></li>
+            <li><p>{{msg.categeory}}</p></li>
+        </div>
+        {% endfor %}
+    </div>
+</div> 
+<h2>Trending Products</h2>
+<hr>
+<div style="background-image:linear-gradient(white,rgb(227, 240, 148));border-radius: 5px;">
+<div class="collection">
+
+    {% for msg in items reversed %}
+    <div>
+        <li><a href="/{{msg.brand.categeries.categeory}}/{{msg.id}}"><img src="{{msg.model_image.url}}" style="object-fit:contain;" width="45%" height="50px" alt="image" ></a></li>
+        <li><p>{{msg.brand_model}}</p></li>
+        
+    </div>
+    {% endfor %}
+</div>
+</div>
+
+{% endblock%}

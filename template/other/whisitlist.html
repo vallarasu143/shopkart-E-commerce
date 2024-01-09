@@ -1,0 +1,41 @@
+{% extends "mainhtml/mainpage.html"%}
+{% load static %}
+
+{% block title%}
+
+<title>WHISITLIST PAGE</title>
+
+{% endblock %}
+
+{% block content %}
+<div style="box-shadow: black 0px 0px 3px;margin: 10px;">
+
+    <div style="border-bottom: 1px solid rgb(121, 120, 120);padding: 5px;"><h1 style="margin-left: 20px;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-weight: normal;color: rgb(74, 73, 73);">My Whisitlist <span id="num_item"></span> </h1></div>
+    <br>
+    
+    <input type="hidden" value="0" id="value">
+
+    {% for msg in item %}
+    <div style="display: flex;align-items:flex-start;justify-content:space-around;border-bottom: 1px solid rgb(121, 120, 120);padding: 10px;" >
+        
+        <img src="{{msg.product.model_image.url}}" width="30%" height="150px" style="object-fit: contain;" alt="image">
+        
+        <div>{{msg.product.brand_model}} <br> <br> &#8377;{{msg.product.prize}}</div>
+        
+        <a href="/whisitlist/item/remove/id/{{msg.id}}"><button style="cursor: pointer;"><i class="fa fa-trash-o" style="font-size: large;"></i></button></a>
+
+        <script>
+            document.getElementById('value').value++;
+            
+        </script>
+
+    </div>
+    {% endfor %}
+
+</div>
+<script>
+    const numqty=document.getElementById('value').value;
+    document.getElementById('num_item').innerHTML="("+numqty+"items)";
+</script>
+
+{% endblock%}

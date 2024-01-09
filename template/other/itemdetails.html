@@ -1,0 +1,73 @@
+{% extends 'mainhtml/mainpage.html'%}
+{% load static %}
+{% block title %}
+<title>MOBILES PAGE</title>
+{% endblock %}
+{% block content %}
+<style>
+    li{
+        list-style-type: none;
+    }
+    .text-animation{
+        animation: text 2s linear infinite;
+       
+    }
+    @keyframes text {
+        0%{background-position: 0% 50%;}
+        50%{background-position: 100% 50%;}
+        100%{background-position: 0% 50% }
+    }
+    #img-mobile{
+        object-fit: contain;
+        animation: fade-in linear forwards;
+        animation-timeline: view();
+        animation-range: 0px 250px;
+    }
+    @keyframes fade-in {
+        from{scale: .5;opacity: 0;}
+        to{scale: 1;opacity: 1;}
+    }
+
+</style>
+{% for msg in item %}
+<input type="hidden" value="{{msg.brand}}" id="brand_name">
+{% endfor %}
+<p style="background-color: white;box-shadow: black 0px 0px 3px;"><img src="" id="b-name" style="object-fit:contain;" width="120px" height="70px" alt=""></p>
+<div  style="background-color: white;padding-top: 40px;">
+        {% for msg in item %}
+        {% if msg.trending%}
+            <div style="position: absolute;left:60%;z-index:1;">
+                <div style="background-color: green;width: fit-content;">
+                    <p class="text-animation" style="background-image: linear-gradient(to left,rgb(253, 253, 253),green,rgb(253, 253, 253));background-size:200% auto;position: relative;font-size: small;padding: 5px;width: fit-content;font-size: larger;color: transparent;-webkit-background-clip:text;">Trending</p>
+                </div>
+            </div>
+        {% endif %}
+        <div style="height: fit-content;">
+            <li style="text-align:center;"><a href="/Mobiles/{{msg.id}}"><img id="img-mobile" src="{{msg.model_image.url}}" width="80%" height="200px" alt="image" ></a></li>
+            <div style="width: 100%;">
+                <ul style="display: inline-flex;gap: 5px;">
+                  <li><span style="font-weight: normal;font-size: medium;">{{msg.brand_model}}</span></li>
+                  <li><span style="background-color: orangered;border-radius: 3px;">&#8377;{{msg.prize}}</span>only/-</li>
+                </ul>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+<script>
+const Bname=document.getElementById('brand_name').value;
+console.log(Bname)
+if(Bname=="Apple"){
+document.getElementById('b-name').src="{% static 'imgfile/apple-logo.jpg'%}";
+} else if(Bname=="Oppo"){
+    document.getElementById('b-name').src="{% static 'imgfile/oppo-logo.png'%}";   
+}else if(Bname=="Vivo"){
+    document.getElementById('b-name').src="{% static 'imgfile/vivo-logo.png'%}";
+}else if(Bname=="Samsung"){
+    document.getElementById('b-name').src="{% static 'imgfile/samsung-logo.png'%}";
+}else if(Bname=="Realme"){
+    document.getElementById('b-name').src="{% static 'imgfile/realme-logo.png'%}";
+}else if(Bname=="Redmi"){
+    document.getElementById('b-name').src="{% static 'imgfile/redmi-logo.png'%}";
+}
+</script>
+{% endblock %}

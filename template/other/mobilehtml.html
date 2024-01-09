@@ -1,0 +1,209 @@
+{% extends 'mainhtml/mainpage.html'%}
+{% load static %}
+{% block title %}
+<title>MOBILES PAGE</title>
+{% endblock %}
+{% block content %}
+<style>
+    th{text-align: left;}
+    td{
+        color: white;
+    }
+    tr th,td{
+        padding: 10px;
+        position: relative;
+    }
+    .click-btn button:hover{
+        box-shadow: black 0px 0px 4px;
+
+    }
+    @media (max-width:600px) {
+        .mobile_viwe{
+            flex-wrap: wrap;
+        }
+    }
+
+    .heart-btn{
+        position: absolute;
+        right: 0;
+        padding: 5px;
+        background-color: white;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+
+    {% for msg in item %}
+ 
+    <input type="hidden" name=""  value="{{msg.mobile_model_id}}" id="product_id">
+    
+    
+    <div class="mobile_viwe" style="background-color: white;display:flex;gap: 10px;padding: 30px;">
+        
+        {% if msg.mobile_model.trending %}
+        <div style="position: absolute;z-index: 1;">
+           <p style="padding: 5px;background-color: green;width: fit-content;color: white;">Trending</p>
+        </div>
+        {% endif %}
+
+
+        <div style="border: 0.5px solid rgb(180, 178, 178);width: 100%;text-align: center;position: relative;">
+            
+            <img  src="{{msg.mobile_model.model_image.url}}" style="object-fit: contain; width:100%;" height="280px" alt="not-working">
+           {% if icon %}
+           {%for iconid in icon %}
+           <button class="heart-btn" id="like-btn"><i class="fa fa-heart" style="color:red;font-size:x-large;"></i></button>
+           {% endfor %}
+           {% else %}
+            <button class="heart-btn" id="like-btn"><i class="fa fa-heart" id="i-con" style="color:rgb(215, 209, 209);font-size:x-large;"></i></button>
+           {% endif %}
+        </div>
+
+        <div style="width: 100%;">
+            <div>
+                <span style="font-size:30px;font-family: Arial, Helvetica, sans-serif;">{{msg.mobile_model.brand_model}}</span>
+                <p style="font-size: larger;font-weight: bold;font-family: Arial, Helvetica, sans-serif;">&#8377;{{msg.mobile_model.prize}}</p>
+            </div>
+             
+           <div>
+                <div style="display:flex;gap: 10px;align-items: baseline;">
+                     <p style="color: rgb(123, 121, 121);font-family:Arial, Helvetica, sans-serif;">Highlights</p>
+                     <ul style="font-family: Arial, Helvetica, sans-serif;color: rgb(42, 42, 42);">
+                         <li>{{msg.storage}}</li>
+                         <li>{{msg.rear_camera}}</li>
+                         <li>{{msg.fornd_camera}}</li>
+                         <li>{{msg.display}}</li>
+                         <li>{{msg.battery}}</li>
+                         <li>{{msg.network}} network</li>
+                         <li>{{msg.processor}}</li>
+                     </ul>
+                </div>
+
+                <p>
+                    <button class="btn-minus" id="id_minus">-</button>
+                    <input type="text" value="1" style="width:30px;text-align: center;" id="num_qty">
+                    <button class="btn-plus" id="id_plus">+</button>
+                </p>
+                {% if msg.mobile_model.stack > 1 %}
+
+                <div class="click-btn" style="width: 100%;">
+                   <button style="background-color:orange;width:150px;border-radius: 2px;border:none;padding:18px;color: white;cursor: pointer;" id="btn_buy"><i class="fa fa-shopping-cart"></i>ADD TO CART</button>
+                   <button style="background-color:orangered;width:150px;border-radius: 2px;border:none;padding:18px;color: white;cursor: pointer;" id="btn_BUY"><i class="fa fa-bolt"></i>BUY NOW</button>
+                </div>
+
+                {% else %}
+
+                <button style="background-color:orange;width:150px;border-radius: 2px;border:none;padding:18px;color: white;cursor: pointer;"  >OUT OF STOCK</button>
+                
+                {% endif %}
+    
+            </div>
+            
+        </div> 
+    </div>
+       <!--p>
+        <button class="btn-minus" id="id_minus">-</button>
+        <input type="text" value="1" style="width:30px;text-align: center;" id="num_qty">
+        <button class="btn-plus" id="id_plus">+</button>
+       </p>
+    <span>You want to</span><a href="#"><button style="background-color: rgb(252, 166, 53);border: 1px solid black;width: 50px;border-radius: 2px;" id="btn_buy">BUY</button></a>    
+    </div-->
+
+   
+
+        {% endfor %}
+<script>
+    document.addEventListener("DOMContentLoaded",function(event){
+        const btn_minus=document.getElementById("id_minus");
+        const btn_plus=document.getElementById("id_plus");
+
+        const num_qty=document.getElementById('num_qty');
+
+        const btn_buy=document.getElementById('btn_buy');
+        const product_id=document.getElementById('product_id');
+
+        btn_plus.addEventListener('click', function(){
+            let qty=parseInt(num_qty.value,10);
+            qty=isNaN(qty)?0:qty;
+            if(qty<10){
+                qty++;
+                num_qty.value=qty;
+            }
+        })
+        btn_minus.addEventListener('click', function(){
+            let qty=parseInt(num_qty.value);
+            qty=isNaN(qty)?0:qty;
+            if(qty>1){
+                qty--;
+                num_qty.value=qty;
+            }
+        })
+
+        btn_buy.addEventListener('click', function(){
+            let qty=parseInt(num_qty.value);
+            qty=isNaN(qty)?0:qty;
+            if(qty>0){
+                let items={
+                    productid:product_id.value,
+                    quandity:qty
+                }
+                //console.log(items)
+                fetch('/addtocart',{
+                    method:'POST',
+                    credentials:"same-origin",
+                    headers:{
+                        'Accept':'application/json',
+                        'X-Requested-With':'XMLHttpRequest',
+                        'X-CSRFToken':"{{ csrf_token }}",
+                    },
+                    body:JSON.stringify(items)
+                }).then(response =>{
+                    return response.json();
+                }).then(data =>{
+                  alert(data.status)
+                  console.log(data.status)
+                   
+                })
+
+            }else{
+                alert('please enter product qty')
+            }
+        })
+})
+
+document.addEventListener("DOMContentLoaded",function(event){
+    const like_btn=document.getElementById('like-btn');
+    const product_id=document.getElementById('product_id');
+
+    like_btn.addEventListener('click',function(){
+
+        let items={
+            product:product_id.value,
+        }
+        fetch('/add_whisitlist',{
+                    method:'POST',
+                    credentials:"same-origin",
+                    headers:{
+                        'Accept':'application/json',
+                        'X-Requested-With':'XMLHttpRequest',
+                        'X-CSRFToken':"{{ csrf_token }}",
+                    },
+                    body:JSON.stringify(items)
+                }).then(response =>{
+                    return response.json();
+                }).then(data =>{
+                  alert(data.status)
+                  console.log(data.status)
+                   
+                })
+                const user='{{request.user.username}}'
+                if(user){
+                document.getElementById('i-con').style.color='red';
+            }
+    })
+})
+
+</script>
+
+{% endblock %}

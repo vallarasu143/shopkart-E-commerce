@@ -1,0 +1,90 @@
+{% extends "mainhtml/mainpage.html"%}
+{% load static %}
+
+{% block title %}
+<title>PROFILEPICTURE PAGE</title>
+{% endblock %}
+
+
+{% block content %}
+
+<script src="{% static 'js/JQuery.js'%}"></script>
+<style>
+.img-block{
+    border:2px solid rgb(145, 150, 146);
+    margin: auto;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    align-items: center;
+}
+.input,#_save-btn{
+    display: none;
+}
+.pic-form input:valid ~ #_save-btn{
+    display: block;
+    width: 200px;
+    padding:10px;
+}
+.pic-form{
+    width: fit-content;
+    margin: auto;
+    text-align: center;
+}
+#click_Btn{
+font-size: larger;
+cursor: pointer;
+}
+.block-over{
+    margin-top: 50px;
+}
+@media (max-width:600px) {
+    .block-over{
+        height: 500px;
+    }
+}
+</style>
+
+{% for messag in messages %}
+<p style="color: green;text-align: center;font-size: large;">{{messag}}</p>
+{% endfor %}
+
+<div class="block-over">
+    <br><br>
+    <div class="img-block">
+        <img id="user-imageid" src="" width="100%"  height="object-fit" style="object-fit:contain;" alt="" class="image">
+    </div><br><hr style="width: 70%;">
+    <form class="pic-form" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="userpic" accept="image/*" class="input" required>
+         <div>
+         <span id="click_Btn"> <i class="fa fa-camera"></i> ChoosePicture</span>
+         </div><br>
+        <button type="submit" id="_save-btn">save</button><br>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('.input').on("change",userpicCHANGE)
+    });
+    function userpicCHANGE(event){
+        
+        let fileread= new FileReader();
+
+        fileread.onload= function(event){
+            $('.image').attr('src',event.target.result);
+        }
+
+        fileread.readAsDataURL(event.target.files[0]);
+    }
+    $('#click_Btn').on('click',function(){
+        $('.input').click();
+    });
+    var image="{{image.userpic.url}}"
+    document.getElementById("user-imageid").src=image ?"{{image.userpic.url}}":"{% static 'imgfile/userimage.png'%}";
+</script>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'mainhtml/mainpage.html' %}
+{% load static %}
+{% block title%}
+
+<title>REGISTER PAGE</title>
+
+{% endblock %}
+
+{% block content %}
+<style>
+    .input-box{
+   width:auto;
+   position: relative;
+   
+}
+.input-box i{
+    position: absolute;
+    font-size: 8px;
+    left: 10px;
+    top: 21px;
+    pointer-events: none;
+    transition: 0.3s;
+
+    
+}
+
+.input-box input:focus ~ i,
+.input-box input:valid ~ i{
+    transform: translateY(-25px);
+    font-size: 6px;
+    opacity: 1;
+}
+</style>
+<div style="display: flex;justify-content: center;padding:30px;">
+    <div style="background-color: rgb(86, 122, 251);width:200px;padding: 30px;font-family: Arial, Helvetica, sans-serif;border-radius: 5px 0px 0px 5px;">
+        <h2 style="color: white;font-weight: normal;">Looks like you're new here!</h2>
+        <p style="color: rgb(233, 233, 233);">Sign up with your details to get started</p>
+        <div style="text-align: center;">
+        <img src="{% static 'imgfile/register-png.webp'%}" width="100px" style="object-fit: contain;" alt="image">
+       </div>
+    </div>
+    <div class="register-form" style="width:300px;" >
+        {% for message in messages %}
+            <p id="message" style="font-size:medium;"><span style="color: green;">{{message}}</span> <i class="fa fa-close" style="font-size:18px;cursor: pointer;" onclick="messageclose()"></i></p>
+        {% endfor %}
+         <form action="" method="post">
+             {% csrf_token %}
+               <div class="input-box">
+                   <!--label for="user-name"><i class='fas fa-user-alt'></i>username</label><br-->
+                   {{form.username}}<i class='fas fa-user-alt'> username</i>
+               </div>
+               <div class="input-box">
+                   <!--label for="user-email"><i class="fa fa-envelope"></i>email</label><br-->
+                   {{form.email}}<i class="fa fa-envelope"> email</i>
+                   
+               </div>
+               <div class="input-box">
+                  <!--label for="user-pass1"><i class="fas fa-key"></i>password</label><br-->
+                  {{form.password1}}<i class="fas fa-key"> password</i>
+               </div>
+               <div class="input-box">
+                   <!--label for="user-pass2">confirm</label><br-->
+                   {{form.password2}}<i class="fas fa-key"> confirm</i>
+               </div>
+               
+               <div style="padding-bottom: 20px;">
+               <button type="submit">Register</button><br>
+               <span style="font-size: small;">Note:</span><a href="/login" style="font-size: x-small;">already register?</a>
+            </div>
+        </form>
+   </div>
+</div>
+<script>
+    function messageclose(){
+    document.getElementById('message').style.display='none';
+}
+</script>
+{% endblock %}

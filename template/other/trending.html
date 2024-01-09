@@ -1,0 +1,19 @@
+{% extends "mainhtml/mainpage.html"%}
+{% load static %}
+{% block title%}
+<title>TRENDING PAGE</title>
+
+{% endblock %}
+
+{% block content %}
+<div class="collection">
+
+    {% for msg in item reversed %}
+    <div>
+        <li><a href="/{{msg.brand.categeries.categeory}}/{{msg.id}}"><img src="{{msg.model_image.url}}" style="object-fit:contain;" width="45%" height="50px" alt="image" ></a></li>
+        <li><p>{{msg.brand_model}}</p></li>
+        
+    </div>
+    {% endfor %}
+</div>
+{% endblock%}

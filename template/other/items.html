@@ -1,0 +1,75 @@
+{% extends 'mainhtml/mainpage.html'%}
+{% load static %}
+{% block title %}
+<title>MOBILES PAGE</title>
+{% endblock %}
+{% block content %}
+
+<div class="collection" style="background-image: linear-gradient(to bottom,green,white);border-radius: 7px;">
+    {% for msg in item %}
+    <div style="margin-top: 10px;text-align: center;">
+        <li><a href="/item-details/{{msg.id}}"><img src="{{msg.item_image.url}}" style="object-fit:contain;" width="45%" height="50px" alt="image" ></a></li>
+        <li style="width: 65%;margin: auto;"><p style="font-weight:bolder;font-size:medium;color: rgb(250, 250, 250);background-color: rgb(63, 134, 206);box-shadow: black 4px 4px 3px;">{{msg.item_name}}</p></li>
+    </div>
+    {% endfor %}
+</div>
+
+<div style="overflow: hidden;background-image:linear-gradient(to top,rgb(38, 41, 36),rgb(246, 246, 246));display: flex;justify-content: space-between;align-items: center;padding: 20px;border-radius: 7px;">
+    <div style="text-align:center;background-color: transparent;width:100%;">
+        <img src="{% static 'imgfile/iphone-14-pro-png.png'%}" style="object-fit: contain;-webkit-box-reflect: left -20px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4));" width="100px"  alt="">
+        
+    </div>
+   
+    <div style="text-align:right;width: 100%;">
+       <p><span style="font-weight: bolder;font-size: larger;">Iphone 14</span> <br><span>sellprize:60999/only</span><br>
+           <span>A15 Bionic Chip, 6Core Processor | Hexa Core <br>6.1inch Super Retina XDR Display</span>
+       </p>
+        <li style="list-style-type: none;background-color: orangered;padding: 5px;border-radius: 7px;text-align: center;"><a href="">Latest Offers</a></li>
+    </div>
+</div>
+
+<div style="background-image:linear-gradient(to top,rgb(65, 229, 218),rgb(247, 244, 244));display: flex;justify-content: space-between;align-items: center;padding: 20px;border-radius: 7px;overflow: hidden;">
+    <div style="width: 100%;">
+       <p><span style="font-weight: bolder;font-size: larger;">Oppo Reno10</span> <br><span>sellprize:60999/only</span><br>
+           <span>A15 Bionic Chip, 6Core Processor | Hexa Core <br>6.1inch Super Retina XDR Display</span>
+       </p>
+    <li style="list-style-type: none;background-color: orangered;padding: 5px;border-radius: 7px;text-align: center;"><a href="" style="text-align: center;">Latest Offers</a></li>
+    </div>
+    
+    <div style="text-align:center;width: 100%;">
+        <div>
+            <img src="{% static 'imgfile/oppo_reno-10.png'%}" style="object-fit: contain;-webkit-box-reflect: right -80px linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.5)) ;" width="170px" alt="">
+        </div>
+    </div>
+</div>
+
+<div style="overflow: hidden;background-image:linear-gradient(to top,rgb(125, 69, 45),rgb(246, 246, 246));display: flex;justify-content: space-between;align-items: center;padding: 20px;border-radius: 7px;">
+    <div style="text-align:center;background-color: transparent;width:100%;">
+        <img src="{% static 'imgfile/vivo_v29.png'%}" style="object-fit: contain;-webkit-box-reflect: left -55px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4));" width="150px"  alt="">
+        
+    </div>
+   
+    <div style="text-align:right;width: 100%;">
+       <p><span style="font-weight: bolder;font-size: larger;">Vivo V29</span> <br><span>sellprize:60999/only</span><br>
+           <span>A15 Bionic Chip, 6Core Processor | Hexa Core <br>6.1inch Super Retina XDR Display</span>
+       </p>
+        <li style="list-style-type: none;background-color: orangered;padding: 5px;border-radius: 7px;text-align: center;"><a href="">Latest Offers</a></li>
+    </div>
+</div>
+
+<div style="overflow: hidden;background-image:linear-gradient(to top,rgb(250, 248, 132),rgb(247, 244, 244));display: flex;justify-content: space-between;align-items: center;padding: 20px;border-radius: 7px;">
+    <div style="width: 100%;">
+       <p><span style="font-weight: bolder;font-size: larger;">Realme Narzo N53</span> <br><span>sellprize:60999/only</span><br>
+           <span>A15 Bionic Chip, 6Core Processor | Hexa Core <br>6.1inch Super Retina XDR Display</span>
+       </p>
+    <li style="list-style-type: none;background-color: orangered;padding: 5px;border-radius: 7px;text-align: center;"><a href="" style="text-align: center;">Latest Offers</a></li>
+    </div>
+    
+    <div style="text-align:center;width: 100%;">
+        <div>
+            <img src="{% static 'imgfile/gold-7fbd7f6887.png'%}" style="object-fit: contain;-webkit-box-reflect: right -80px linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.5)) ;" width="170px" alt="">
+        </div>
+    </div>
+</div>
+
+{% endblock %}

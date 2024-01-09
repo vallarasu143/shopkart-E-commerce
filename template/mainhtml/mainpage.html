@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="https://img.freepik.com/free-vector/vector-graphic-design-element-k-letter_460848-6943.jpg?size=626&ext=jpg&ga=GA1.1.586296960.1704780036&semt=ais">
+    <link rel="stylesheet" href="{% static 'css/css.css'%}">
+    <script src="https://kit.fontawesome.com/02f77ca667.js" crossorigin="anonymous"></script>
+ 
+</head>
+<body>
+{% include "html/navbar.html"%}
+  {% block content %}
+  {% endblock %}
+{% include 'html/footer.html'%}
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="{% static 'js/item-js-details.js'%}"></script>
+
+
+</body>
+</html>

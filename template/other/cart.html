@@ -1,0 +1,109 @@
+{% extends "mainhtml/mainpage.html"%}
+{% load static %}
+{% block title%}
+<title>MYCART PAGE</title>
+
+{% endblock %}
+{% block content %}
+<style>
+    td{
+        text-align: center;
+    }
+    
+    .order-btn-btn{display: none;}
+
+    .price-detail{width: 50%;}
+
+    @media (max-width:600px) {
+        .flex_wrap{flex-wrap: wrap;}
+        .order-btn{
+            display: none;
+        }
+        .order-btn-btn{
+            display: block;
+        }
+        .price-detail{
+            width: 100%;
+        }
+    }
+</style>
+
+{% if detail %}
+<div class="flex_wrap" style="display:flex;background-color: rgb(236, 236, 237);padding:10px;gap: 10px;font-family: Arial, Helvetica, sans-serif;">
+    
+    <div style="width: 100%;box-shadow: black 0px 0px 3px ;">
+
+        <input type="hidden" value="" id="_total_amount">
+        <input type="hidden" value="" id="num__qty">
+
+        {% for msg in detail reversed %}
+        <div style="display:flex;align-items: center;background-color: white;border-bottom: 1px solid rgb(141, 140, 140);">
+            
+            <div style="padding: 10px;">
+              <img src="{{msg.product.model_image.url}}" style="object-fit: contain;" width="150px" height="150px" alt="image"><br>
+            </div>
+
+            <div>
+                {{msg.product.brand_model}} <br><br>&#8377;<span id="_total_price-{{msg.id}}"></span><br>
+                <a href="/itemminus/{{msg.id}}"><button class="btn-minus" id="minus-{{msg.id}}">-</button></a>
+                <input type="text" value="{{msg.qty}}" style="width:30px;text-align: center;" id="id-{{msg.id}}">
+                <a href="/itemplus/{{msg.id}}"><button class="btn-plus" id="plus-{{msg.id}}">+</button></a>
+                <br>
+                <a href="/cart_remove/{{msg.id}}"><button>remove</button></a>
+            </div>
+        </div>
+
+        <script>
+            var Price='{{msg.product.prize}}';
+            var P_qty='{{msg.qty}}';
+            document.getElementById('num__qty').value++;
+            document.getElementById('_total_price-{{msg.id}}').innerHTML=Price*P_qty;
+            var total=Number(document.getElementById('_total_price-{{msg.id}}').innerHTML)
+            var amount=Number(document.getElementById('_total_amount').value)
+            document.getElementById('_total_amount').value=total+amount;
+       </script>
+
+       {% endfor %}  
+
+        <div class="order-btn" style="position: -webkit-sticky;position: sticky;bottom: 0;background-color: white;text-align:right;padding: 20px;box-shadow: black 0px 0px 3px;">
+           <span style="background-color: orangered;color: white;border-radius: 5px;padding: 10px;">PLACE ORDER</span>
+        </div> 
+
+    </div>
+    
+    <div class="price-detail" style="height: 300px;background-color: rgb(251, 251, 251);position: -webkit-sticky;position: sticky;top:70px;box-shadow: black 0px 0px 3px ;">
+        <p style="color:rgba(88, 88, 88, 0.817);margin-left:30px;font-family: Arial, Helvetica, sans-serif;font-weight:200;">PRICE DETAILS</p>
+        <hr>
+        <div style="display: flex;justify-content: space-around;">
+            <span id="item_qty"></span><span id="__price"></span>
+        </div>
+        <hr>
+        <p style="margin-top: 100px;"><span>TotalAmount:</span><span id="_price_"></span></p>
+    </div>
+
+    <div class="order-btn-btn" style="width:100%;position: -webkit-sticky;position: sticky;bottom: 0;background-color: white;text-align:right;padding: 20px;box-shadow: black 0px 0px 3px;">
+        <span style="background-color: orangered;color: white;border-radius: 5px;padding: 10px;">PLACE ORDER</span>
+    </div>
+
+</div>
+
+
+{% else %}
+<p>{{msg}}</p>
+{% endif %}
+
+<script>
+    const msg='{{msg}}'
+    if(msg){
+    alert(msg);
+}
+const _Price=document.getElementById("_total_amount");
+const _item_qty=document.getElementById("num__qty");
+document.getElementById("__price").innerHTML='&#8377;'+_Price.value;
+document.getElementById("_price_").innerHTML='&#8377;'+_Price.value;
+document.getElementById("item_qty").innerHTML="Price("+_item_qty.value+" "+"items)";
+
+</script>
+
+
+{% endblock%}

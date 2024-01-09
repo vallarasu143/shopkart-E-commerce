@@ -1,0 +1,79 @@
+{% extends "mainhtml/mainpage.html"%}
+
+{% block title%}
+
+<title>LOGIN PAGE</title>
+
+{% endblock %}
+
+{% block content %}
+<style>
+#message{
+    font-size:small;
+}
+.fa-close:hover{
+    cursor: pointer;
+    text-shadow: white 0px 2px 8px;
+    font-size: 26px;
+}
+.input-box{
+   width:auto;
+   position: relative;
+   
+}
+.input-box i{
+    position: absolute;
+    font-size: 10px;
+    left: 10px;
+    top: 10px;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.input-box input:focus ~ i,
+.input-box input:valid ~ i{
+    transform: translateZ(20px);
+    font-size: 8px;
+    opacity: 0;
+}
+</style>
+<div>
+    <div style="display: flex;justify-content: center;padding: 30px;">
+
+        <div style="padding:30px ;width: 150px;background-color: rgb(86, 122, 251);font-family: Arial, Helvetica, sans-serif;border-radius: 5px 0px 0px 5px;">
+            <h2 style="color: white;font-size:30px;font-weight: normal;" >Login</h2>
+            <p style="color: rgb(211, 210, 210);">Get access to your Orders,<br> Wishlist and Recommendations</p>
+        </div>
+       <div class="login-form" >
+          <form action="" method="post" class="horizontal">
+             {% csrf_token %}
+             {% for message in messages %}
+             {% if message.tags == "error" %}
+             <p id="message"><span style="color: red;">{{message}}</span> <i class="fa fa-close" style="font-size:18px" onclick="messageclose()"></i></p>
+             {% else %}
+             <p id="message"><span style="color: green;">{{message}}</span> <i class="fa fa-close" style="font-size:18px" onclick="messageclose()"></i></p>
+             {% endif %}
+             {% endfor %}
+             <!--label for=""><i class='fas fa-user-alt'></i>username:</label><br-->
+             <div class="input-box">
+                <input required autocomplete="off" type="text" name="user-name" id=""><i class='fas fa-user-alt'>user</i>
+            </div><br>
+             <!--label for=""><i class="fas fa-key"></i>password:</label><br-->
+             <div class="input-box">
+             <input required autocomplete="off" type="password" name="user-password" id=""><i class="fas fa-key">password</i>
+            </div>
+             <br>
+             <div >
+             <button type="submit">Login</button><br>
+             <span style="font-size: small;">Note:</span><a href="/register" style="font-size: xx-small;">you don't have account?</a>
+            </div>
+          </form>
+       </div>
+    </div>
+</div>
+<script>
+    function messageclose(){
+    document.getElementById('message').style.display='none';
+}
+</script>
+{% endblock %}
